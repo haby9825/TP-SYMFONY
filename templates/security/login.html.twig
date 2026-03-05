@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <link href="{{ asset('css/galerie.css') }}" rel="stylesheet" />
+        <title>{% block title %}Connexion{% endblock %}</title>
+    </head>
+    <body>
+        <form method="post">
+            {% if error %}
+                <div style="color: #8B2A2A; margin-bottom: 15px;">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+            {% endif %}
+
+            {% if app.user %}
+                <div style="margin-bottom: 15px;">
+                    Vous êtes connecté en tant que {{ app.user.userIdentifier }}
+                    <a href="{{ path('app_logout') }}">Se déconnecter</a>
+                </div>
+            {% endif %}
+
+            <h3>Connexion</h3>
+            
+            <label for="inputEmail">Email</label>
+            <input type="email" value="{{ last_username }}" name="email" id="inputEmail" autocomplete="email" required autofocus>
+            
+            <label for="inputPassword">Mot de passe</label>
+            <input type="password" name="password" id="inputPassword" autocomplete="current-password" required>
+            
+            <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+
+            <div style="margin: 15px 0;">
+                <label style="display: inline; font-weight: normal; font-size: 14px; text-transform: none;">
+                    <input type="checkbox" name="_remember_me"> Se souvenir de moi
+                </label>
+            </div>
+
+            <button type="submit">
+                Me connecter
+            </button>
+        </form>
+        
+        <br>
+        <a href="{{ path('galerie', {'page': 1}) }}">Retour à la galerie</a>
+    </body>
+</html>

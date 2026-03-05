@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <link href="{{ asset('css/galerie.css') }}" rel="stylesheet" />
+        <title>{% block title %}Welcome!{% endblock %}</title>
+    </head>
+    <body>
+        {{ form_start(form) }}
+
+        {{ form_label(form.titre) }}
+        {{ form_errors(form.titre) }}
+        {{ form_widget(form.titre) }}
+        <br>
+
+        {{ form_label(form.auteur) }}
+        {{ form_errors(form.auteur) }}
+        {{ form_widget(form.auteur) }}
+        <br>
+
+        {{ form_label(form.date) }}
+        {{ form_errors(form.date) }}
+        {{ form_widget(form.date) }}
+        <br>
+
+        {{ form_label(form.fichier) }}
+        {{ form_errors(form.fichier) }}
+        {{ form_widget(form.fichier) }}
+        <br>
+
+        {{ form_widget(form.save) }}
+
+        {{ form_end(form) }}
+
+        <a href="{{ path('galerie', {'page': 1}) }}">Retour à la galerie</a>
+    </body>
+</html>
+

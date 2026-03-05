@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <link href="{{ asset('css/galerie.css') }}" rel="stylesheet" />
+        <link href="{{ asset('css/galerie_flex.css') }}" rel="stylesheet" />
+        <title>{% block title %}Welcome!{% endblock %}</title>
+    </head>
+    <body>
+        {{ form_start(form) }}
+        {{ form_row(form.auteur) }}
+        {{ form_widget(form.save) }}
+        {{ form_end(form, {'render_rest': false}) }}
+
+        {% if resultats is not empty %}
+            <h3>Résultats de la recherche :</h3>
+            <div class="gallery-container">
+                {% for img in resultats %}
+                    <div class="image-item">
+                        <img src="{{ asset("img/#{img.fichier}") }}"/>
+                        <p>{{ img.titre }} - {{ img.auteur }}<br>({{ img.date|date('d/m/Y') }})</p>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        <div class="gallery-container">
+            {% for image in images %}
+                <div class="image-item">
+                    <img src="{{ asset("img/#{image.fichier}") }}"/>
+                    <p>{{ image.titre }} - {{ image.auteur }}<br>({{ image.date|date('d/m/Y') }})</p>
+                </div>
+            {% endfor %}
+        </div>
+
+        <br>
+        <a href="{{ path('galerie', {'pages': 1}) }}">accueil</a>
+        <a href="{{ path('galerie', {'pages': pages +1}) }}">suivant</a>
+        <br>
+        <a href="{{ path('image') }}">Ajouter une image</a>
+        <br><br>
+        
+        {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+            <p>Connecté en tant que {{ app.user.email }}</p>
+            <a href="{{ path('app_logout') }}">Se déconnecter</a>
+        {% else %}
+            <a href="{{ path('app_login') }}">Se connecter</a>
+        {% endif %}
+
+    </body>
+</html>

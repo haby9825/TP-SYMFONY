@@ -1,0 +1,31 @@
+# yaml-language-server: $schema=../vendor/symfony/routing/Loader/schema/routing.schema.json
+
+# This file is the entry point to configure the routes of your app.
+# Methods with the #[Route] attribute are automatically imported.
+# See also https://symfony.com/doc/current/routing.html
+
+# To list all registered routes, run the following command:
+#   bin/console debug:router
+
+controllers:
+    resource: routing.controllers
+
+hello:
+    path: /hello/{unnom}
+    controller: App\Controller\LuckyController::number
+    methods:    GET|HEAD
+
+galerie:
+    path: /galerie/{page}
+    controller: App\Controller\GalerieController::number
+    methods: GET|POST|HEAD
+    defaults:
+        page: 1
+    requirements:
+        page: \d*
+
+image:
+    path: /galerie/add
+    controller: App\Controller\ImageController::i
+    methods: GET|POST|HEAD
+
