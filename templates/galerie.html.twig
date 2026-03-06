@@ -12,18 +12,6 @@
         {{ form_widget(form.save) }}
         {{ form_end(form, {'render_rest': false}) }}
 
-        {% if resultats is not empty %}
-            <h3>Résultats de la recherche :</h3>
-            <div class="gallery-container">
-                {% for img in resultats %}
-                    <div class="image-item">
-                        <img src="{{ asset("img/#{img.fichier}") }}"/>
-                        <p>{{ img.titre }} - {{ img.auteur }}<br>({{ img.date|date('d/m/Y') }})</p>
-                    </div>
-                {% endfor %}
-            </div>
-        {% endif %}
-
         <div class="gallery-container">
             {% for image in images %}
                 <div class="image-item">
@@ -34,8 +22,15 @@
         </div>
 
         <br>
-        <a href="{{ path('galerie', {'pages': 1}) }}">accueil</a>
-        <a href="{{ path('galerie', {'pages': pages +1}) }}">suivant</a>
+        <a href="{{ path('galerie', {'page': 1}) }}">accueil</a>
+        
+        {% if pages > 1 %}
+            <a href="{{ path('galerie', {'page': pages - 1}) }}">précédent</a>
+        {% endif %}
+
+        {% if images|length == 4 %}
+            <a href="{{ path('galerie', {'page': pages + 1}) }}">suivant</a>
+        {% endif %}
         <br>
         <a href="{{ path('image') }}">Ajouter une image</a>
         <br><br>
