@@ -10,11 +10,6 @@
 controllers:
     resource: routing.controllers
 
-hello:
-    path: /hello/{unnom}
-    controller: App\Controller\LuckyController::number
-    methods:    GET|HEAD
-
 galerie:
     path: /galerie/{page}
     controller: App\Controller\GalerieController::number
